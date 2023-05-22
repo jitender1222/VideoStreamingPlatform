@@ -1,0 +1,15 @@
+.container{
+    height:100vh;
+    padding:4rem;
+    box-sizing: border-box;
+}
+.headerImage{
+    filter: drop-shadow(0 40px 10px rgba(0,0,0,0.3));
+    animation: vectorAnimation 1s infinite ease-in-out alternate;
+}
+
+@keyframes vectorAnimation{
+    to{
+        transform: translateY(-10px);
+    }
+}
