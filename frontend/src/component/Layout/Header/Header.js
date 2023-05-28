@@ -21,7 +21,7 @@ const LinkButton = ({ url = "/", title = "Home", onClose }) => (
 
 const Header = () => {
   const { onOpen, isOpen, onClose } = useDisclosure();
-  const isAuthenticated = true;
+  const isAuthenticated = false;
   const user = {
     role: "admin",
   };
