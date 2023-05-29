@@ -43,7 +43,7 @@ const Login = () => {
             />
           </Box>
           <Box>
-            <Link to="/forgotpassword">
+            <Link to="/forgetPassword">
               <Button fontSize={"sm"} variant={"link"}>
                 Forgot Password
               </Button>
