@@ -32,6 +32,8 @@ const Register = () => {
   const [imagePrev, setImagePrev] = useState();
   const [image, setImage] = useState();
 
+  console.log(image);
+
   const changeImageHandler = (e) => {
     const file = e.target.files[0];
     const reader = new FileReader();
