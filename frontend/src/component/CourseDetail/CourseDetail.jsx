@@ -47,7 +47,6 @@ const CourseDetail = () => {
       },
     },
   ];
-  const lectureTitle = "Lecture Title";
   return (
     <Grid minH={"90vh"} templateColumns={["1fr", "3fr 1fr"]}>
       <Box>
@@ -70,6 +69,7 @@ const CourseDetail = () => {
       <VStack>
         {lectures.map((el, index) => (
           <button
+            key={index}
             onClick={() => setLectureNumber(index)}
             style={{
               width: "100%",

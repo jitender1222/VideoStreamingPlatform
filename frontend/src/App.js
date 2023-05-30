@@ -16,6 +16,7 @@ import PaymentSuccess from "./component/Layout/Payment/PaymentSuccess";
 import PaymentFail from "./component/Layout/Payment/PaymentFail";
 import NotFound from "./component/Layout/NotFound/NotFound";
 import CourseDetail from "./component/CourseDetail/CourseDetail";
+import Profile from "./component/Profile/Profile";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
         <Route path="/request" element={<Request />} />
         <Route path="/courses" element={<Course />} />
         <Route path="/course/:id" element={<CourseDetail />} />
+        <Route path="/profile" element={<Profile />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/forgetPassword" element={<ForgetPassword />} />
