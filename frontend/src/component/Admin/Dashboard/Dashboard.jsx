@@ -1,18 +1,17 @@
 import {
   Box,
-  Button,
   Grid,
   HStack,
   Heading,
   Progress,
   Stack,
   Text,
-  VStack,
 } from "@chakra-ui/react";
 import React from "react";
 import SideBar from "../SideBar/SideBar";
 import cursor from "../../../assests/Images/mouse-cursor.png";
 import { RiArrowDownLine, RiArrowUpLine } from "react-icons/ri";
+import { DoughnutChart, LineChart } from "./Chart";
 
 const Databox = ({ title, qty, qtyPercentage, profit }) => (
   <Box
@@ -97,6 +96,7 @@ const Dashboard = () => {
             ml={["0", "16"]}
           />
           {/* Line graph Here */}
+          <LineChart />
         </Box>
         <Grid templateColumns={["1fr", "2fr 1fr"]}>
           <Box p="4">
@@ -112,6 +112,17 @@ const Dashboard = () => {
               <Bar profit={true} title="Users" value={80} />
               <Bar profit={false} title="Subscription" value={20} />
             </Box>
+          </Box>
+
+          <Box p={["0", "16"]} boxSizing="border-box" py="4">
+            <Heading
+              textAlign={"center"}
+              size={"md"}
+              mb={"4"}
+              children="Users"
+            />
+            {/* graaph   */}
+            <DoughnutChart />
           </Box>
         </Grid>
       </Box>
