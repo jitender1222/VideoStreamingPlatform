@@ -17,21 +17,21 @@ const schema = new mongoose.Schema({
   lectures: [
     {
       title: {
-        require: true,
+        require: [true, "Add lecture title"],
         type: String,
       },
       description: {
         type: String,
-        required: true,
+        required: [true, "Add lecture description"],
       },
       video: {
         public_id: {
           type: String,
-          required: true,
+          required: [true, "Add video id"],
         },
         url: {
           type: String,
-          required: true,
+          required: [true, "Add video url"],
         },
       },
     },

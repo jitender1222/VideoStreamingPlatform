@@ -5,4 +5,6 @@ class ErrorHandler extends Error {
   }
 }
 
+// console.log("inside the error handdler");
+
 export default ErrorHandler;

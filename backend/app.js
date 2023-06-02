@@ -6,6 +6,13 @@ dotenv.config({
 });
 
 const app = express();
+// middlewear
+app.use(express.json());
+app.use(
+  express.urlencoded({
+    extended: true,
+  })
+);
 
 // importing routes
 
@@ -13,9 +20,11 @@ import course from "./routes/CourseRoute.js";
 import user from "./routes/userRoute.js";
 import { errorMiddlewear } from "./middlewears/Error.js";
 
+// routes
 app.use("/api/v1", course);
 app.use("/api/v1", user);
 
+// error middlewear
 app.use(errorMiddlewear);
 
 export default app;
