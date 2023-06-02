@@ -56,11 +56,11 @@ const schema = new mongoose.Schema({
   },
   category: {
     required: true,
-    type: string,
+    type: String,
   },
   CreatedBy: {
     required: [true, "Enter Course Creator Name"],
-    type: string,
+    type: String,
   },
   CreatedAt: {
     default: Date.now,
