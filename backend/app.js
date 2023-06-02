@@ -21,8 +21,8 @@ import user from "./routes/userRoute.js";
 import { errorMiddlewear } from "./middlewears/Error.js";
 
 // routes
-app.use("/api/v1", course);
-app.use("/api/v1", user);
+app.use("/api/v1/course", course);
+app.use("/api/v1/user", user);
 
 // error middlewear
 app.use(errorMiddlewear);
