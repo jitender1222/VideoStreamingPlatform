@@ -28,7 +28,7 @@ export const handlRegister = catchAsyncError(async (req, res, next) => {
 
   Token(res, user, "Register Successfully", 201);
 });
-export const handlLogout = catchAsyncError(async (req, res, next) => {
+export const handleLogin = catchAsyncError(async (req, res, next) => {
   const { email, password } = req.body;
 
   if (!email || !password)
@@ -42,7 +42,20 @@ export const handlLogout = catchAsyncError(async (req, res, next) => {
   // if user found compare password
   let isMatch = await user.comparePassword(password);
 
-  if (isMatch) return res.send(`Welcome back ${user.name}`);
+  if (!isMatch)
+    return next(new ErrorHandler("Incorrect email and password", 401));
 
-  Token(res, user, "Register Successfully", 201);
+  Token(res, user, `Welcome back ${user.name}`, 201);
+});
+
+export const handleLogout = catchAsyncError(async (req, res, next) => {
+  res
+    .status(200)
+    .cookie("token", null, {
+      expires: new Date(Date.now()),
+    })
+    .json({
+      success: true,
+      message: "Logged Out Successfully",
+    });
 });
