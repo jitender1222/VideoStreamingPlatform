@@ -59,3 +59,10 @@ export const handleLogout = catchAsyncError(async (req, res, next) => {
       message: "Logged Out Successfully",
     });
 });
+export const handleMyProile = catchAsyncError(async (req, res, next) => {
+  const user = await User.findById(req.user._id);
+  res.status(200).json({
+    success: true,
+    user,
+  });
+});

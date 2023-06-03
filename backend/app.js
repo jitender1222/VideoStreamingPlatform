@@ -1,5 +1,6 @@
 import express from "express";
 import dotenv from "dotenv";
+import cookieParser from "cookie-parser";
 
 dotenv.config({
   path: "./config/.env",
@@ -13,6 +14,10 @@ app.use(
     extended: true,
   })
 );
+
+// cookie parser
+
+app.use(cookieParser());
 
 // importing routes
 
