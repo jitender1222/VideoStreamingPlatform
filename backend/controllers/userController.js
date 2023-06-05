@@ -6,6 +6,7 @@ import { Email } from "../utils/sendMail.js";
 import crypto from "crypto";
 import { Course } from "../models/Course.js";
 
+// handle Register
 export const handlRegister = catchAsyncError(async (req, res, next) => {
   const { name, email, password } = req.body;
 
@@ -31,6 +32,8 @@ export const handlRegister = catchAsyncError(async (req, res, next) => {
 
   Token(res, user, "Register Successfully", 201);
 });
+
+// handleLogin
 export const handleLogin = catchAsyncError(async (req, res, next) => {
   const { email, password } = req.body;
 
@@ -51,6 +54,7 @@ export const handleLogin = catchAsyncError(async (req, res, next) => {
   Token(res, user, `Welcome back ${user.name}`, 201);
 });
 
+// Lagout
 export const handleLogout = catchAsyncError(async (req, res, next) => {
   res
     .status(200)
@@ -69,6 +73,8 @@ export const handleMyProile = catchAsyncError(async (req, res, next) => {
     user,
   });
 });
+
+// change Password
 export const handleChangePassword = catchAsyncError(async (req, res, next) => {
   const { oldPassword, newPassword } = req.body;
 
@@ -90,6 +96,8 @@ export const handleChangePassword = catchAsyncError(async (req, res, next) => {
     messgae: "Password Updated Successfully",
   });
 });
+
+// update Profile
 export const updateProfile = catchAsyncError(async (req, res, next) => {
   const { name, email } = req.body;
 
@@ -195,6 +203,8 @@ export const addToPlaylist = catchAsyncError(async (req, res, next) => {
     message: "Course Added Successfully",
   });
 });
+
+// remove playlist
 export const removeFromPlaylist = catchAsyncError(async (req, res, next) => {
   const user = await User.findById(req.user._id);
 
