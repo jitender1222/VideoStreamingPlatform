@@ -1,7 +1,10 @@
 import express from "express";
 import {
   addToPlaylist,
+  deleteMyProile,
+  deleteUser,
   forgetPassword,
+  getAllUsers,
   handlRegister,
   handleChangePassword,
   handleLogin,
@@ -11,13 +14,18 @@ import {
   resetPassword,
   updateProfile,
   updateProfilePic,
+  updateUser,
 } from "../controllers/userController.js";
-import { isAuthenticated } from "../middlewears/isAuthenticated.js";
+import {
+  authorizeAdmin,
+  isAuthenticated,
+} from "../middlewears/isAuthenticated.js";
+import singleUpload from "../middlewears/multer.js";
 
 const router = express.Router();
 
 // register
-router.route("/register").post(handlRegister);
+router.route("/register").post(singleUpload, handlRegister);
 
 // login
 router.route("/login").post(handleLogin);
@@ -26,7 +34,10 @@ router.route("/login").post(handleLogin);
 router.route("/logout").get(handleLogout);
 
 // myProfile
-router.route("/myProfile").get(isAuthenticated, handleMyProile);
+router
+  .route("/myProfile")
+  .get(isAuthenticated, handleMyProile)
+  .delete(isAuthenticated, deleteMyProile);
 
 // change Password
 router.route("/changePassword").put(isAuthenticated, handleChangePassword);
@@ -35,7 +46,9 @@ router.route("/changePassword").put(isAuthenticated, handleChangePassword);
 router.route("/updateProfile").put(isAuthenticated, updateProfile);
 
 // update profile pic
-router.route("/updateProfilePic").put(isAuthenticated, updateProfilePic);
+router
+  .route("/updateProfilePic")
+  .put(isAuthenticated, singleUpload, updateProfilePic);
 
 // forget password
 router.route("/forgetPassword").post(isAuthenticated, forgetPassword);
@@ -48,5 +61,14 @@ router.route("/addToPlaylist").post(isAuthenticated, addToPlaylist);
 
 // remove from playlist
 router.route("/removeFromPlaylist").delete(isAuthenticated, removeFromPlaylist);
+
+// Admin route
+
+router.route("/allUsers").get(isAuthenticated, authorizeAdmin, getAllUsers);
+
+router
+  .route("/allUsers/:id")
+  .get(isAuthenticated, authorizeAdmin, updateUser)
+  .delete(isAuthenticated, authorizeAdmin, deleteUser);
 
 export default router;
