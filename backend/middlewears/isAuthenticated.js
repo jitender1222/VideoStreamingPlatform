@@ -27,3 +27,13 @@ export const authorizeAdmin = catchAsyncError(async (req, res, next) => {
   }
   next();
 });
+
+export const authorizeSubscriber = catchAsyncError(async (req, res, next) => {
+  if (req.user.subscription.status !== "active" && req.user.role !== "admin") {
+    return next(
+      new ErrorHandler(` Only Subscriber can access this resource`),
+      403
+    );
+  }
+  next();
+});

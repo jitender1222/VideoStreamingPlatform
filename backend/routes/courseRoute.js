@@ -11,6 +11,7 @@ import singleUpload from "../middlewears/multer.js";
 import {
   authorizeAdmin,
   isAuthenticated,
+  authorizeSubscriber,
 } from "../middlewears/isAuthenticated.js";
 
 const router = express.Router();
@@ -26,7 +27,7 @@ router
 // create new course
 router
   .route("/lectures/:id")
-  .get(isAuthenticated, getCourseLecture)
+  .get(isAuthenticated, authorizeSubscriber, getCourseLecture)
   .post(isAuthenticated, authorizeAdmin, singleUpload, addCourseLectures)
   .delete(isAuthenticated, authorizeAdmin, deleteCourse);
 
