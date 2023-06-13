@@ -25,11 +25,13 @@ import course from "./routes/CourseRoute.js";
 import user from "./routes/userRoute.js";
 import { errorMiddlewear } from "./middlewears/Error.js";
 import payment from "./routes/paymentRoute.js";
+import otherRoutes from "./routes/otherRoute.js";
 
 // routes
 app.use("/api/v1/course", course);
 app.use("/api/v1/user", user);
 app.use("/api/v1/payment", payment);
+app.use("/api/v1/other", otherRoutes);
 
 // error middlewear
 app.use(errorMiddlewear);
