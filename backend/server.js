@@ -2,6 +2,8 @@ import app from "./App.js";
 import { connectDb } from "./config/database.js";
 import cloudinary from "cloudinary";
 import Razorpay from "razorpay";
+import nodeCron from "node-cron";
+import { Stats } from "./models/Stats.js";
 
 connectDb();
 
@@ -14,6 +16,14 @@ cloudinary.v2.config({
   cloud_name: "dhmh4xpkr",
   api_key: "421456475899664",
   api_secret: "I9B43F-hdrmmNRLpK4VGpO89-3Q",
+});
+
+nodeCron.schedule("0 0 0 1 * *", async () => {
+  try {
+    await Stats.create({});
+  } catch (error) {
+    console.log(error);
+  }
 });
 
 app.listen(process.env.PORT, () => {
