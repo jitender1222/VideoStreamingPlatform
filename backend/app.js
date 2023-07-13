@@ -21,7 +21,7 @@ app.use(cookieParser());
 
 // importing routes
 
-import course from "./routes/CourseRoute.js";
+import course from "./routes/courseRoute.js";
 import user from "./routes/userRoute.js";
 import { errorMiddlewear } from "./middlewears/Error.js";
 import payment from "./routes/paymentRoute.js";
