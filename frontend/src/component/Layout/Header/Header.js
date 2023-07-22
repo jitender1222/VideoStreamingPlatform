@@ -12,6 +12,8 @@ import {
 import React from "react";
 import { RiDashboardFill, RiLogoutBoxLine, RiMenu5Fill } from "react-icons/ri";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { logout } from "../../../Redux/Actions/user";
 
 const LinkButton = ({ url = "/", title = "Home", onClose }) => (
   <Link to={url} onClick={onClose}>
@@ -19,16 +21,13 @@ const LinkButton = ({ url = "/", title = "Home", onClose }) => (
   </Link>
 );
 
-const Header = () => {
+const Header = ({ isAuthenticated = false, user }) => {
   const { onOpen, isOpen, onClose } = useDisclosure();
-  const isAuthenticated = false;
-  const user = {
-    role: "admin",
-  };
 
+  const dispatch = useDispatch();
   const logoutHandler = () => {
-    console.log("logout ");
     onClose();
+    dispatch(logout());
   };
   return (
     <>
