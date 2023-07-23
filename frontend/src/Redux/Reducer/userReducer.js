@@ -32,6 +32,37 @@ export const userReducer = createReducer(
       state.message = action.payload;
     },
 
+    // registration request
+
+    registrationRequest: (state) => {
+      state.loading = true;
+    },
+    registrationSuccess: (state, action) => {
+      state.loading = false;
+      state.isAuthenticated = true;
+      state.user = action.payload.user;
+      state.message = action.payload.message;
+    },
+    registrationFail: (state, action) => {
+      state.loading = false;
+      state.isAuthenticated = false;
+      state.message = action.payload;
+    },
+    registrationUserRequest: (state) => {
+      state.loading = true;
+    },
+    registrationUserSuccess: (state, action) => {
+      state.loading = false;
+      state.isAuthenticated = true;
+      state.user = action.payload;
+      state.message = action.payload.message;
+    },
+    registrationUserFail: (state, action) => {
+      state.loading = false;
+      state.isAuthenticated = false;
+      state.message = action.payload;
+    },
+
     // logout
     logoutRequest: (state) => {
       state.loading = true;

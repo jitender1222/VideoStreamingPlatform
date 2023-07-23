@@ -26,23 +26,8 @@ const removeFromPlaylist = () => {
   console.log("remove");
 };
 
-const Profile = () => {
+const Profile = ({ user }) => {
   const { isOpen, onClose, onOpen } = useDisclosure();
-  const user = {
-    name: "jitender",
-    email: "jit@gmail.com",
-    createdAt: String(new Date().toISOString()),
-    role: "user",
-    subscription: {
-      status: "undefined",
-    },
-    playlist: [
-      {
-        poster: "Sone",
-        course: "scbdskch",
-      },
-    ],
-  };
   const changeImageHandler = (e, image) => {
     e.preventDefault();
     console.log(image);
@@ -79,7 +64,7 @@ const Profile = () => {
           {user.role !== "admin" && (
             <HStack>
               <Text children="Subscription:" fontWeight={"bold"} />
-              {user.subscription.status === "active" ? (
+              {user.subscription && user.subscription.status === "active" ? (
                 <Button variant={"unstyled"} color={"yellow.500"}>
                   Cancel Subscription
                 </Button>
