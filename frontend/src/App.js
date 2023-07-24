@@ -100,7 +100,7 @@ function App() {
                 element={
                   <ProtectedRoute
                     isAuthenticated={!isAuthenticated}
-                    redirect="/login"
+                    redirect="/profile"
                   >
                     <Login />
                   </ProtectedRoute>

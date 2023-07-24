@@ -22,12 +22,14 @@ import { RiDeleteBin7Fill } from "react-icons/ri";
 import { Link } from "react-router-dom";
 import { fileUploadStyleCss } from "../Auth/Register";
 
-const removeFromPlaylist = () => {
-  console.log("remove");
-};
-
 const Profile = ({ user }) => {
+  // console.log("user", user);
   const { isOpen, onClose, onOpen } = useDisclosure();
+
+  const removeFromPlaylist = () => {
+    console.log("remove");
+  };
+
   const changeImageHandler = (e, image) => {
     e.preventDefault();
     console.log(image);
@@ -43,7 +45,7 @@ const Profile = ({ user }) => {
         padding={"8"}
       >
         <VStack>
-          <Avatar boxSize={"48"} />
+          <Avatar boxSize={"48"} src={user?.avatar?.url} />
           <Button colorScheme="yellow" variant={"ghost"} onClick={onOpen}>
             Change Photo
           </Button>
@@ -51,20 +53,20 @@ const Profile = ({ user }) => {
         <VStack spacing={"4"} alignItems={["center", "flex-start"]}>
           <HStack>
             <Text children="Name:" fontWeight={"bold"} />
-            <Text children={user.name} />
+            <Text children={user?.name} />
           </HStack>
           <HStack>
             <Text children="Email:" fontWeight={"bold"} />
-            <Text children={user.email} />
+            <Text children={user?.email} />
           </HStack>
           <HStack>
             <Text children="Created At:" fontWeight={"bold"} />
-            <Text children={user.createdAt.split("T")[0]} />
+            <Text children={user?.createdAt.split("T")[0]} />
           </HStack>
-          {user.role !== "admin" && (
+          {user?.role !== "admin" && (
             <HStack>
               <Text children="Subscription:" fontWeight={"bold"} />
-              {user.subscription && user.subscription.status === "active" ? (
+              {user?.subscription && user.subscription.status === "active" ? (
                 <Button variant={"unstyled"} color={"yellow.500"}>
                   Cancel Subscription
                 </Button>
@@ -87,14 +89,14 @@ const Profile = ({ user }) => {
       </Stack>
 
       <Heading children="Playlist" size={"md"} my={"8"} />
-      {user.playlist.length > 0 && (
+      {user?.playlist?.length > 0 && (
         <Stack
           direction={["column", "row"]}
           alignItems={"center"}
           flexWrap={"wrap"}
           p={"4"}
         >
-          {user.playlist.map((element, index) => (
+          {user?.playlist.map((element, index) => (
             <VStack w={"48"} m={"2"} key={element.course}>
               <Image
                 boxSize={"full"}

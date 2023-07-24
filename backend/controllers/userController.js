@@ -64,12 +64,15 @@ export const handleLogin = catchAsyncError(async (req, res, next) => {
   Token(res, user, `Welcome back ${user.name}`, 201);
 });
 
-// Lagout
+// Logout
 export const handleLogout = catchAsyncError(async (req, res, next) => {
   res
     .status(200)
     .cookie("token", null, {
       expires: new Date(Date.now()),
+      httpOnly: true,
+      secure: true,
+      sameSite: "none",
     })
     .json({
       success: true,
@@ -316,6 +319,7 @@ export const deleteMyProile = catchAsyncError(async (req, res, next) => {
 
 User.watch().on("change", async () => {
   const stats = await Stats.find({}).sort({ createdAt: "desc" }).limit(1);
+  console.log(stats);
 
   const subscription = await User.find({ "subscription.status": "active" });
 

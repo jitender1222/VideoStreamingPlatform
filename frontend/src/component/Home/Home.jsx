@@ -20,6 +20,7 @@ import { FcGoogle } from "react-icons/fc";
 import { BsMicrosoft } from "react-icons/bs";
 
 const Home = () => {
+  // console.log("Home Page");
   return (
     <section className="home">
       <div className="container">

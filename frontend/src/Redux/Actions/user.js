@@ -1,4 +1,4 @@
-import { server } from "../Reducer/store";
+import { server } from "../store";
 
 import axios from "axios";
 
@@ -42,6 +42,7 @@ export const registration = (formData) => async (dispatch) => {
   }
 };
 
+// myprofile
 export const getMyProfile = () => async (dispatch) => {
   try {
     dispatch({ type: "loadUserRequest" });
@@ -60,7 +61,7 @@ export const getMyProfile = () => async (dispatch) => {
 
 export const logout = () => async (dispatch) => {
   try {
-    dispatch({ type: "looutRequest" });
+    dispatch({ type: "logoutRequest" });
 
     const { data } = await axios.get(`${server}/user/logout`, {
       withCredentials: true,

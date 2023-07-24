@@ -45,7 +45,7 @@ const Login = () => {
               id="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              type="email"
+              type="password"
               placeholder="Enter you Password"
               focusBorderColor="yellow.500"
             />

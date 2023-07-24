@@ -98,7 +98,7 @@ const Register = () => {
               id="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              type="email"
+              type="password"
               placeholder="Enter you Password"
               focusBorderColor="yellow.500"
             />
@@ -107,7 +107,7 @@ const Register = () => {
             <Input
               required
               id="chooseAvatar"
-              value={password}
+              // value={}
               type={"file"}
               placeholder="Enter you Password"
               focusBorderColor="yellow.500"
