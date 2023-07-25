@@ -17,23 +17,44 @@ import {
   VStack,
   useDisclosure,
 } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { RiDeleteBin7Fill } from "react-icons/ri";
 import { Link } from "react-router-dom";
 import { fileUploadStyleCss } from "../Auth/Register";
+import { useDispatch, useSelector } from "react-redux";
+import { UpdateProfilePicture } from "../../Redux/Actions/profile";
+import { toast } from "react-hot-toast";
 
 const Profile = ({ user }) => {
   // console.log("user", user);
   const { isOpen, onClose, onOpen } = useDisclosure();
+  const dispatch = useDispatch();
+  // const { loading, message, error } = useSelector((state) => state.Profile);
+  const { loading, error, message } = useSelector((state) => state.profile);
 
   const removeFromPlaylist = () => {
     console.log("remove");
   };
 
-  const changeImageHandler = (e, image) => {
+  const changeImageHandler = async (e, image) => {
     e.preventDefault();
-    console.log(image);
+    const myForm = new FormData();
+    myForm.append("file", image);
+    await dispatch(UpdateProfilePicture(myForm));
   };
+
+  useEffect(() => {
+    if (error) {
+      console.log("inside error");
+      toast.error(error);
+      dispatch({ type: "clearError" });
+    }
+    if (message) {
+      console.log("update pass");
+      toast.success(message);
+      dispatch({ type: "clearMessage" });
+    }
+  }, [dispatch, error, message]);
   return (
     <Container minH={"95vh"} maxW={"container.lg"} py={"8"}>
       <Heading children={"Profile"} m={"8"} textTransform={"uppercase"} />
@@ -78,10 +99,10 @@ const Profile = ({ user }) => {
             </HStack>
           )}
           <Stack direction={["column", "row"]} alignItems={"center"}>
-            <Link to={"/updateprofile"}>
+            <Link to={"/updateProfile"}>
               <Button>Update Profile</Button>
             </Link>
-            <Link to={"/changepassword"}>
+            <Link to={"/changePassword"}>
               <Button>Change Password</Button>
             </Link>
           </Stack>
@@ -122,6 +143,7 @@ const Profile = ({ user }) => {
         changeImageHandler={changeImageHandler}
         isOpen={isOpen}
         onClose={onClose}
+        loading={loading}
       />
     </Container>
   );
@@ -129,7 +151,7 @@ const Profile = ({ user }) => {
 
 export default Profile;
 
-function ChangePhotoBox({ isOpen, onClose, changeImageHandler }) {
+function ChangePhotoBox({ isOpen, onClose, changeImageHandler, loading }) {
   const [image, setImage] = useState();
   const [imagePrev, setImagePrev] = useState("");
   const changeImage = (e) => {
@@ -166,7 +188,12 @@ function ChangePhotoBox({ isOpen, onClose, changeImageHandler }) {
                   css={{ "&::file-selector-button": fileUploadStyleCss }}
                   onChange={changeImage}
                 />
-                <Button w="fill" colorScheme="yellow" type="submit">
+                <Button
+                  w="fill"
+                  colorScheme="yellow"
+                  type="submit"
+                  isLoading={loading}
+                >
                   Change
                 </Button>
               </VStack>

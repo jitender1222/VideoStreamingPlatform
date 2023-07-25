@@ -23,7 +23,6 @@ const LinkButton = ({ url = "/", title = "Home", onClose }) => (
 
 const Header = ({ isAuthenticated = false, user }) => {
   const { onOpen, isOpen, onClose } = useDisclosure();
-
   const dispatch = useDispatch();
   const logoutHandler = () => {
     onClose();
@@ -85,13 +84,15 @@ const Header = ({ isAuthenticated = false, user }) => {
                         </Button>
                       </Link>
 
-                      <Button
-                        variant="ghost"
-                        colorScheme="yellow"
-                        onClick={logoutHandler}
-                      >
-                        <RiLogoutBoxLine /> LogOut
-                      </Button>
+                      <Link onClick={onClose} to={"/login"}>
+                        <Button
+                          variant="ghost"
+                          colorScheme="yellow"
+                          onClick={logoutHandler}
+                        >
+                          <RiLogoutBoxLine /> LogOut
+                        </Button>
+                      </Link>
                     </HStack>
                     {user && user.role === "admin" && (
                       <Link to="/admin/dashboard" onClick={onClose}>

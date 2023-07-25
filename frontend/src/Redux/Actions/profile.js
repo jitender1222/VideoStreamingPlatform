@@ -60,22 +60,26 @@ export const changePassword =
 
 // update profile picture
 
-// export const UpdateProfilePicture = (name, email) => async (dispatch) => {
-//   try {
-//     dispatch({ type: "updateProfilePictureRequest" });
+export const UpdateProfilePicture = (formData) => async (dispatch) => {
+  try {
+    dispatch({ type: "updateProfilePictureRequest" });
 
-//     const { data } = await axios.put(`${server}/user/updateProfile`, formData, {
-//       headers: {
-//         "Content-Type": ",ultipart/form-data",
-//       },
-//       withCredentials: true,
-//     });
+    const { data } = await axios.put(
+      `${server}/user/updateProfilePic`,
+      formData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+        withCredentials: true,
+      }
+    );
 
-//     dispatch({ type: "updateProfilePictureSuccess", payload: data.message });
-//   } catch (error) {
-//     dispatch({
-//       type: "updateProfilePcitureFail",
-//       payload: error.response.data.message,
-//     });
-//   }
-// };
+    dispatch({ type: "updateProfilePictureSuccess", payload: data.message });
+  } catch (error) {
+    dispatch({
+      type: "updateProfilePictureFail",
+      payload: error.response.data.message,
+    });
+  }
+};

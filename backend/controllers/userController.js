@@ -106,7 +106,7 @@ export const handleChangePassword = catchAsyncError(async (req, res, next) => {
 
   res.status(200).json({
     success: true,
-    messgae: "Password Updated Successfully",
+    message: "Password Updated Successfully1",
   });
 });
 
@@ -123,9 +123,11 @@ export const updateProfile = catchAsyncError(async (req, res, next) => {
   if (email) user.email = email;
   res.status(200).json({
     success: true,
-    messgae: "Profile Updated Successfully",
+    message: "Profile Updated Successfully",
   });
 });
+
+// .update profile pic
 
 export const updateProfilePic = catchAsyncError(async (req, res, next) => {
   const file = req.file;
@@ -317,15 +319,15 @@ export const deleteMyProile = catchAsyncError(async (req, res, next) => {
     });
 });
 
-User.watch().on("change", async () => {
-  const stats = await Stats.find({}).sort({ createdAt: "desc" }).limit(1);
-  console.log(stats);
+// User.watch().on("change", async () => {
+//   const stats = await Stats.find({}).sort({ createdAt: "desc" }).limit(1);
+//   console.log(stats);
 
-  const subscription = await User.find({ "subscription.status": "active" });
+//   const subscription = await User.find({ "subscription.status": "active" });
 
-  stats[0].users = await User.countDocuments();
-  stats[0].subscription = subscription.length;
-  stats[0].CreatedAt = new Date(Date.now());
+//   stats[0].users = await User.countDocuments();
+//   stats[0].subscription = subscription.length;
+//   stats[0].CreatedAt = new Date(Date.now());
 
-  await stats[0].save();
-});
+//   await stats[0].save();
+// });

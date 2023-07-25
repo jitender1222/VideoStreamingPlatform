@@ -3,16 +3,15 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { updateProfile } from "../../Redux/Actions/profile";
 
-const UpdateProfile = () => {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
+const UpdateProfile = ({ user }) => {
+  const [name, setName] = useState(user.name);
+  const [email, setEmail] = useState(user.email);
 
   const dispatch = useDispatch();
 
-  const SubmitHandler = (e) => {
+  const SubmitHandler = async (e) => {
     e.preventDefault();
-
-    dispatch(updateProfile(name, email));
+    await dispatch(updateProfile(name, email));
   };
   return (
     <Container py={"16"} minH={"90vh"}>
@@ -25,16 +24,14 @@ const UpdateProfile = () => {
         />
         <VStack spacing={"10"}>
           <Input
-            required
-            type={"name"}
+            type={"text"}
             onChange={(e) => setName(e.target.value)}
             value={name}
             placeholder="Name"
             focusBorderColor="yellow.500"
           />
           <Input
-            required
-            type={"password"}
+            type={"email"}
             onChange={(e) => setEmail(e.target.value)}
             value={email}
             placeholder="Email"
