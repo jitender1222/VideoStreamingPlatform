@@ -51,10 +51,10 @@ router
   .put(isAuthenticated, singleUpload, updateProfilePic);
 
 // forget password
-router.route("/forgetPassword").post(isAuthenticated, forgetPassword);
+router.route("/forgetPassword").post(forgetPassword);
 
 // reset password
-router.route("/resetPassword/:token").put(isAuthenticated, resetPassword);
+router.route("/resetPassword/:token").put(resetPassword);
 
 // add to playlist
 router.route("/addToPlaylist").post(isAuthenticated, addToPlaylist);

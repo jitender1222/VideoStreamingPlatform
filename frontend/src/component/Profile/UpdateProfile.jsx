@@ -1,5 +1,5 @@
 import { Button, Container, Heading, Input, VStack } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { updateProfile } from "../../Redux/Actions/profile";
 

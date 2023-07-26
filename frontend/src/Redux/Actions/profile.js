@@ -58,6 +58,63 @@ export const changePassword =
     }
   };
 
+// forgot password
+
+export const forgotPassword = (email) => async (dispatch) => {
+  try {
+    dispatch({ type: "forgotPasswordRequest" });
+
+    const { data } = await axios.post(
+      `${server}/user/forgetPassword`,
+      {
+        email,
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        withCredentials: true,
+      }
+    );
+    console.log("data", data);
+
+    dispatch({ type: "forgotPasswordSuccess", payload: data.message });
+  } catch (error) {
+    dispatch({
+      type: "forgotPasswordFail",
+      payload: error.response.data.message,
+    });
+  }
+};
+
+// reset password
+
+export const resetPassword = (token, password) => async (dispatch) => {
+  try {
+    dispatch({ type: "resetPasswordRequest" });
+
+    const { data } = await axios.put(
+      `${server}/user/resetPassword/${token}`,
+      {
+        password,
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        withCredentials: true,
+      }
+    );
+
+    dispatch({ type: "resetPasswordSuccess", payload: data.message });
+  } catch (error) {
+    dispatch({
+      type: "resetPasswordFail",
+      payload: error.response.data.message,
+    });
+  }
+};
+
 // update profile picture
 
 export const UpdateProfilePicture = (formData) => async (dispatch) => {

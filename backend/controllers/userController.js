@@ -158,6 +158,7 @@ export const forgetPassword = catchAsyncError(async (req, res, next) => {
   const { email } = req.body;
 
   const user = await User.findOne({ email });
+  console.log("user", user);
 
   if (!user)
     return next(new ErrorHandler("User not found with this email", 400));
@@ -201,7 +202,7 @@ export const resetPassword = catchAsyncError(async (req, res, next) => {
   user.resetPasswordToken = undefined;
   user.ResetPasswordExpire = undefined;
 
-  user.save();
+  await user.save();
   res.status(200).json({
     success: true,
     message: "Password changed Successfully",
