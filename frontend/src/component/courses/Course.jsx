@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Button,
   Container,
@@ -10,12 +10,22 @@ import {
   Text,
   VStack,
 } from "@chakra-ui/react";
+import { useDispatch, useSelector } from "react-redux";
 
 import { Link } from "react-router-dom";
+import { getAllCourses } from "../../Redux/Actions/course";
+import { toast } from "react-hot-toast";
 
 const Course = () => {
-  const [keyword, setKeyword] = useState();
-  const [category, setCategory] = useState();
+  const [keyword, setKeyword] = useState("");
+  const [category, setCategory] = useState("");
+  const dispatch = useDispatch();
+  const { loading, courses, error } = useSelector((state) => state.course);
+  console.log("courses", typeof courses);
+
+  const addToPlaylistHandler = () => {
+    console.log("Added");
+  };
 
   const Course = ({
     views,
@@ -87,6 +97,16 @@ const Course = () => {
     "Java",
     "C++",
   ];
+
+  useEffect(() => {
+    dispatch(getAllCourses(category, keyword));
+
+    if (error) {
+      toast.error(error);
+      dispatch({ type: "clearError" });
+    }
+  }, [dispatch, keyword, category]);
+
   return (
     <>
       <Container minH={"95vh"} maxW="container.lg" paddingY={"8"}>
@@ -112,14 +132,22 @@ const Course = () => {
           justifyContent={["flex-start", "space-evenly"]}
           alignItems={["center", "flex-start"]}
         >
-          <Course
-            views={2}
-            title={"Sample"}
-            description={"Sample"}
-            imageSrc={"Sample"}
-            creator={"Sample"}
-            lectureCount={2}
-          />
+          {courses.length > 0 ? (
+            courses.map((item) => (
+              <Course
+                key={item._id}
+                views={item.views}
+                title={item.title}
+                description={item.description}
+                imageSrc={item.poster.url}
+                creator={item.createdBy}
+                lectureCount={item.numOfVideos}
+                addToPlaylistHandler={addToPlaylistHandler}
+              />
+            ))
+          ) : (
+            <Heading children={"Courses Not Found"} />
+          )}
         </Stack>
       </Container>
     </>
