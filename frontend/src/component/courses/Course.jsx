@@ -146,7 +146,7 @@ const Course = () => {
               />
             ))
           ) : (
-            <Heading children={"Courses Not Found"} />
+            <Heading mt={"12"} children={"Courses Not Found"} />
           )}
         </Stack>
       </Container>
