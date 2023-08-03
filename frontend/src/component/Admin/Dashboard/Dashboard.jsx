@@ -121,7 +121,7 @@ const Dashboard = () => {
               mb={"4"}
               children="Users"
             />
-            {/* graaph   */}
+            {/* graph   */}
             <DoughnutChart />
           </Box>
         </Grid>

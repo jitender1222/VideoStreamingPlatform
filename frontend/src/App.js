@@ -152,7 +152,7 @@ function App() {
                 path="/admin/dashboard"
                 element={
                   <ProtectedRoute
-                    isAuthenticated={!isAuthenticated}
+                    isAuthenticated={isAuthenticated}
                     adminRoute={true}
                     isAdmin={user && user.role === "admin"}
                     redirect="/login"
@@ -165,7 +165,7 @@ function App() {
                 path="/admin/createCourse"
                 element={
                   <ProtectedRoute
-                    isAuthenticated={!isAuthenticated}
+                    isAuthenticated={isAuthenticated}
                     adminRoute={true}
                     isAdmin={user && user.role === "admin"}
                     redirect="/login"
@@ -178,7 +178,7 @@ function App() {
                 path="/admin/courses"
                 element={
                   <ProtectedRoute
-                    isAuthenticated={!isAuthenticated}
+                    isAuthenticated={isAuthenticated}
                     adminRoute={true}
                     isAdmin={user && user.role === "admin"}
                     redirect="/login"
@@ -191,7 +191,7 @@ function App() {
                 path="/admin/users"
                 element={
                   <ProtectedRoute
-                    isAuthenticated={!isAuthenticated}
+                    isAuthenticated={isAuthenticated}
                     adminRoute={true}
                     isAdmin={user && user.role === "admin"}
                     redirect="/login"

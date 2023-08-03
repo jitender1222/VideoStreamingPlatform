@@ -8,10 +8,13 @@ import {
   Select,
   VStack,
 } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import SideBar from "../SideBar/SideBar";
 import cursor from "../../../assests/Images/mouse-cursor.png";
 import { fileUploadStyleCss } from "../../Auth/Register";
+import { createCourse } from "../../../Redux/Actions/admin";
+import { useDispatch, useSelector } from "react-redux";
+import toast from "react-hot-toast";
 
 const categories = [
   "Web Development",
@@ -29,7 +32,9 @@ const CreateCourses = () => {
   const [createdBy, setCreatedBy] = useState("");
   const [imagePrev, setImagePrev] = useState("");
   const [image, setImage] = useState("");
-  console.log(image);
+  // console.log(image);
+  const dispatch = useDispatch();
+  const { loading, error, message } = useSelector((state) => state.admin);
 
   const changeImageHandler = (e) => {
     const file = e.target.files[0];
@@ -42,6 +47,32 @@ const CreateCourses = () => {
       setImage(file);
     };
   };
+
+  const submitHandler = (e) => {
+    e.preventDefault();
+
+    const myForm = new FormData();
+
+    myForm.append("title", title);
+    myForm.append("description", description);
+    myForm.append("category", category);
+    myForm.append("createdBy", createdBy);
+    myForm.append("file", image);
+
+    dispatch(createCourse(myForm));
+  };
+
+  useEffect(() => {
+    if (error) {
+      toast.error(error);
+      dispatch({ type: "clearError" });
+    }
+
+    if (message) {
+      toast.success(message);
+      dispatch({ type: "clearMessage" });
+    }
+  }, [dispatch, error, message]);
   return (
     <Grid
       minH={"90vh"}
@@ -49,7 +80,7 @@ const CreateCourses = () => {
       templateColumns={["1fr", "5fr 1fr"]}
     >
       <Container py={"20"}>
-        <form>
+        <form onSubmit={submitHandler}>
           <Heading
             textTransform={"uppercase"}
             children="Create Course"
@@ -67,7 +98,7 @@ const CreateCourses = () => {
             <Input
               value={description}
               onChange={(e) => setDescription(e.target.value)}
-              placeholder="Title"
+              placeholder="Description"
               type="text"
               focusBorderColor="purple.300"
             />
@@ -106,7 +137,12 @@ const CreateCourses = () => {
             {imagePrev && (
               <Image src={imagePrev} boxSize="64" objectFit={"contain"} />
             )}
-            <Button w={"full"} colorScheme="purple" type="submit">
+            <Button
+              isLoading={loading}
+              w={"full"}
+              colorScheme="purple"
+              type="submit"
+            >
               Create
             </Button>
           </VStack>
