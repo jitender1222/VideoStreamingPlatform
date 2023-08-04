@@ -16,25 +16,25 @@ import { createCourse } from "../../../Redux/Actions/admin";
 import { useDispatch, useSelector } from "react-redux";
 import toast from "react-hot-toast";
 
-const categories = [
-  "Web Development",
-  "Data Structure And Algorithm",
-  "Machine Learning",
-  "Data Science",
-  "Java",
-  "C++",
-];
-
 const CreateCourses = () => {
   const [title, setTitle] = useState("");
-  const [category, setCategory] = useState("");
   const [description, setDescription] = useState("");
+  const [category, setCategory] = useState("");
   const [createdBy, setCreatedBy] = useState("");
-  const [imagePrev, setImagePrev] = useState("");
   const [image, setImage] = useState("");
+  const [imagePrev, setImagePrev] = useState("");
   // console.log(image);
   const dispatch = useDispatch();
   const { loading, error, message } = useSelector((state) => state.admin);
+
+  const categories = [
+    "Web Development",
+    "Data Structure And Algorithm",
+    "Machine Learning",
+    "Data Science",
+    "Java",
+    "C++",
+  ];
 
   const changeImageHandler = (e) => {
     const file = e.target.files[0];

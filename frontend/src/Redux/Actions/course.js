@@ -9,16 +9,12 @@ export const getAllCourses =
       dispatch({ type: "allCoursesRequest" });
 
       const { data } = await axios.get(
-        `${server}/course/courses?keyword=${keyword}&category=${category}`,
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-          withCredentials: true,
-        }
+        `${server}/course/allCourse?keyword=${keyword}&category=${category}`
       );
 
-      dispatch({ type: "allCoursesSuccess", payload: data.message });
+      console.log("data", data.getAll);
+
+      dispatch({ type: "allCoursesSuccess", payload: data.getAll });
     } catch (error) {
       dispatch({
         type: "allCoursesFail",

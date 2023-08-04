@@ -23,6 +23,15 @@ const Course = () => {
   const { loading, courses, error } = useSelector((state) => state.course);
   console.log("courses", typeof courses);
 
+  useEffect(() => {
+    dispatch(getAllCourses(category, keyword));
+
+    if (error) {
+      toast.error(error);
+      dispatch({ type: "clearError" });
+    }
+  }, [dispatch, keyword, category, error]);
+
   const addToPlaylistHandler = () => {
     console.log("Added");
   };
@@ -98,15 +107,6 @@ const Course = () => {
     "C++",
   ];
 
-  useEffect(() => {
-    dispatch(getAllCourses(category, keyword));
-
-    if (error) {
-      toast.error(error);
-      dispatch({ type: "clearError" });
-    }
-  }, [dispatch, keyword, category]);
-
   return (
     <>
       <Container minH={"95vh"} maxW="container.lg" paddingY={"8"}>
@@ -132,7 +132,8 @@ const Course = () => {
           justifyContent={["flex-start", "space-evenly"]}
           alignItems={["center", "flex-start"]}
         >
-          {courses.length > 0 ? (
+          {courses?.length > 0 ? (
+            courses &&
             courses.map((item) => (
               <Course
                 key={item._id}

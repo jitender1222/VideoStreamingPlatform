@@ -25,13 +25,11 @@ export const getAllCourses = catchAsyncError(async (req, res, next) => {
 });
 
 export const createcourse = catchAsyncError(async (req, res, next) => {
+  const file = req.file;
   const { title, description, category, createdBy } = req.body;
-
   if (!title || !description || !category || !createdBy || !file) {
     return next(new ErrorHandler("Please fill all fields", 400));
   }
-
-  const file = req.file;
   // console.log("file inside the course controller 23", file);
 
   // file uri

@@ -15,27 +15,20 @@ import {
   Tr,
   useDisclosure,
 } from "@chakra-ui/react";
-import React from "react";
+import React, { useEffect } from "react";
 import SideBar from "../SideBar/SideBar";
 import cursor from "../../../assests/Images/mouse-cursor.png";
 import { RiDeleteBin7Fill } from "react-icons/ri";
 import CourseModel from "./CourseModel";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllCourses } from "../../../Redux/Actions/course";
 
 const AdminCourses = () => {
   const { isOpen, onClose, onOpen } = useDisclosure();
-  const courses = [
-    {
-      _id: "wqjkgfjqwgfqwk",
-      title: "React",
-      category: "Web Development",
-      poster: {
-        url: "https://www.datocms-assets.com/45470/1631110818-logo-react-js.png",
-      },
-      CreatedBy: "Jitender",
-      views: 123,
-      numOfVideos: 1,
-    },
-  ];
+
+  const { courses } = useSelector((state) => state.course);
+
+  const dispatch = useDispatch();
 
   const courseHandler = () => {
     onOpen();
@@ -52,6 +45,10 @@ const AdminCourses = () => {
   const addLectureHandler = ({ e, courseId, title, description, video }) => {
     e.preventDefault();
   };
+
+  useEffect(() => {
+    dispatch(getAllCourses());
+  }, [dispatch]);
   return (
     <Grid
       minH={"90vh"}
@@ -81,7 +78,7 @@ const AdminCourses = () => {
               </Tr>
             </Thead>
             <Tbody>
-              {courses.map((item) => (
+              {courses?.map((item) => (
                 <Row
                   courseHandler={courseHandler}
                   deleteHandler={deleteHandler}
