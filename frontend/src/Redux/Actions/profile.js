@@ -140,3 +140,49 @@ export const UpdateProfilePicture = (formData) => async (dispatch) => {
     });
   }
 };
+
+export const addToPlaylist = (id) => async (dispatch) => {
+  try {
+    dispatch({ type: "addedToPlaylistRequest" });
+
+    const { data } = await axios.post(
+      `${server}/user/addToPlaylist`,
+      {
+        id,
+      },
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+        withCredentials: true,
+      }
+    );
+
+    dispatch({ type: "addedToPlaylistSuccess", payload: data.message });
+  } catch (error) {
+    dispatch({
+      type: "addedToPlaylistFail",
+      payload: error.response.data.message,
+    });
+  }
+};
+
+export const removeFromPlaylist = (id) => async (dispatch) => {
+  try {
+    dispatch({ type: "removeFromPlaylistRequest" });
+
+    const { data } = await axios.delete(
+      `${server}/user/removeFromPlaylist?id=${id}`,
+      {
+        withCredentials: true,
+      }
+    );
+
+    dispatch({ type: "removeFromPlaylistSuccess", payload: data.message });
+  } catch (error) {
+    dispatch({
+      type: "removeFromPlaylistFail",
+      payload: error.response.data.message,
+    });
+  }
+};

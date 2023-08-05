@@ -15,13 +15,17 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { getAllCourses } from "../../Redux/Actions/course";
 import { toast } from "react-hot-toast";
+import { addToPlaylist } from "../../Redux/Actions/profile";
 
 const Course = () => {
   const [keyword, setKeyword] = useState("");
   const [category, setCategory] = useState("");
   const dispatch = useDispatch();
-  const { loading, courses, error } = useSelector((state) => state.course);
+  const { loading, courses, error, message } = useSelector(
+    (state) => state.course
+  );
   console.log("courses", typeof courses);
+  console.log("courses", courses);
 
   useEffect(() => {
     dispatch(getAllCourses(category, keyword));
@@ -30,10 +34,15 @@ const Course = () => {
       toast.error(error);
       dispatch({ type: "clearError" });
     }
-  }, [dispatch, keyword, category, error]);
+    if (message) {
+      toast.success(message);
+      dispatch({ type: "clearMessage" });
+    }
+  }, [dispatch, keyword, category, error, message]);
 
-  const addToPlaylistHandler = () => {
-    console.log("Added");
+  const addToPlaylistHandler = (courseId) => {
+    console.log("courseid", courseId);
+    dispatch(addToPlaylist(courseId));
   };
 
   const Course = ({
@@ -45,6 +54,7 @@ const Course = () => {
     creator,
     description,
     lectureCount,
+    loading,
   }) => {
     return (
       <VStack className="course" alignItems={["center", "flex-start"]}>
@@ -85,7 +95,9 @@ const Course = () => {
 
         <Stack direction={["column", "row"]} alignItems={"center"}>
           <Link to={`/course/$id`}>
-            <Button colorScheme={"yellow"}>Watch Now</Button>
+            <Button isLoading={loading} colorScheme={"yellow"}>
+              Watch Now
+            </Button>
             <Button
               variant={"ghost"}
               colorScheme={"yellow"}
@@ -143,7 +155,9 @@ const Course = () => {
                 imageSrc={item.poster.url}
                 creator={item.createdBy}
                 lectureCount={item.numOfVideos}
+                id={item._id}
                 addToPlaylistHandler={addToPlaylistHandler}
+                loading={loading}
               />
             ))
           ) : (
