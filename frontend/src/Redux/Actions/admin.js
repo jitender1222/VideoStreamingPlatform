@@ -89,3 +89,27 @@ export const deleteUserRole = (id) => async (dispatch) => {
     });
   }
 };
+
+export const addLecture = (id, formData) => async (dispatch) => {
+  try {
+    dispatch({ type: "addLectureRequest" });
+
+    const { data } = await axios.post(
+      `${server}/course/lectures/${id}`,
+      formData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+        withCredentials: true,
+      }
+    );
+
+    dispatch({ type: "addLectureSuccess", payload: data.message });
+  } catch (error) {
+    dispatch({
+      type: "addLectureFail",
+      payload: error.response.data.message,
+    });
+  }
+};
