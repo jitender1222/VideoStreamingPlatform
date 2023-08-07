@@ -15,23 +15,28 @@ import {
   Tr,
   useDisclosure,
 } from "@chakra-ui/react";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import SideBar from "../SideBar/SideBar";
 import cursor from "../../../assests/Images/mouse-cursor.png";
 import { RiDeleteBin7Fill } from "react-icons/ri";
 import CourseModel from "./CourseModel";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllCourses } from "../../../Redux/Actions/course";
+import { addLecture } from "../../../Redux/Actions/admin";
 
 const AdminCourses = () => {
   const { isOpen, onClose, onOpen } = useDisclosure();
 
   const { courses } = useSelector((state) => state.course);
+  const [courseId, setCourseId] = useState("");
+  const [courseTitle, setCourseTitle] = useState("");
 
   const dispatch = useDispatch();
 
-  const courseHandler = () => {
+  const courseHandler = (courseId, courseTitle) => {
     onOpen();
+    setCourseId(courseId);
+    setCourseTitle(courseTitle);
   };
   const deleteHandler = (userId) => {
     console.log(userId);
@@ -42,8 +47,20 @@ const AdminCourses = () => {
     console.log(LecId);
   };
 
-  const addLectureHandler = ({ e, courseId, title, description, video }) => {
+  const addLectureHandler = async ({
+    e,
+    courseId,
+    title,
+    description,
+    video,
+  }) => {
     e.preventDefault();
+    const myForm = new FormData();
+    myForm.append("title", title);
+    myForm.append("description", description);
+    myForm.append("file", video);
+
+    await dispatch(addLecture(courseId, myForm));
   };
 
   useEffect(() => {
@@ -92,10 +109,10 @@ const AdminCourses = () => {
         <CourseModel
           isOpen={isOpen}
           onClose={onClose}
-          id={"wvdcjwvwv"}
+          id={courseId}
           delLectureBtnhandler={delLectureBtnhandler}
           addLectureHandler={addLectureHandler}
-          courseTitle="React Course"
+          courseTitle={courseTitle}
         />
       </Box>
       <SideBar />
@@ -113,15 +130,16 @@ function Row({ item, courseHandler, deleteHandler }) {
           <Image src="https://www.datocms-assets.com/45470/1631110818-logo-react-js.png" />
         }
       </Td>
+      <Td>{item.title}</Td>
       <Td textTransform={"uppercase"}>{item.category}</Td>
       <Td>{item.CreatedBy}</Td>
       <Td isNumeric>{item.views}</Td>
       <Td isNumeric>{item.numOfVideos}</Td>
 
-      <Td>
+      <Td isNumeric>
         <HStack justifyContent={"flex-end"}>
           <Button
-            onClick={() => courseHandler(item._id)}
+            onClick={() => courseHandler(item._id, item.title)}
             variant={"outline"}
             color={"purple.500"}
           >
