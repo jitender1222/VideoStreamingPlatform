@@ -70,9 +70,9 @@ export const getCourseLecture = catchAsyncError(async (req, res, next) => {
 
 // add lectures
 export const addCourseLectures = catchAsyncError(async (req, res, next) => {
-  const course = await Course.findById(req.params.id);
-
+  const { id } = req.params;
   const { title, description } = req.body;
+  const course = await Course.findById(id);
 
   if (!title || !description)
     return next(new ErrorHandler("All fields are required"), 404);

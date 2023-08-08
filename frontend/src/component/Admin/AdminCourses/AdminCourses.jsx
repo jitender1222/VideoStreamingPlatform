@@ -33,10 +33,11 @@ const AdminCourses = () => {
 
   const dispatch = useDispatch();
 
-  const courseHandler = (courseId, courseTitle) => {
+  const courseHandler = (courseId, title) => {
+    console.log("course handler", courseId);
     onOpen();
     setCourseId(courseId);
-    setCourseTitle(courseTitle);
+    setCourseTitle(title);
   };
   const deleteHandler = (userId) => {
     console.log(userId);

@@ -26,8 +26,8 @@ const CourseModel = ({
   id,
   delLectureBtnhandler,
   addLectureHandler,
-  lectures = [1, 2, 3, 4, 5, 6],
-  CourseTitle,
+  lectures = [],
+  courseTitle,
 }) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -61,13 +61,13 @@ const CourseModel = ({
     >
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>{CourseTitle}</ModalHeader>
+        <ModalHeader>{courseTitle}</ModalHeader>
         <ModalCloseButton />
         <ModalBody p="16">
           <Grid templateColumns={["1fr", "3fr 1fr"]}>
             <Box px={["0", "16"]}>
               <Box my={"5"}>
-                <Heading children={CourseTitle} />
+                <Heading children={courseTitle} />
                 <Heading children={`#${id}`} size={"sm"} opacity={"0.4"} />
               </Box>
               <Heading children="Lectures" size={"lg"} />
