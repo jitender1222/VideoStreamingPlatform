@@ -28,6 +28,7 @@ const CourseModel = ({
   addLectureHandler,
   lectures = [],
   courseTitle,
+  loading,
 }) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -127,7 +128,7 @@ const CourseModel = ({
                       src={videoPrev}
                     ></video>
                   )}
-                  <Button w={"full"} colorScheme="purple">
+                  <Button type="submit" w={"full"} colorScheme="purple">
                     Upload
                   </Button>
                 </VStack>

@@ -27,7 +27,8 @@ import { addLecture } from "../../../Redux/Actions/admin";
 const AdminCourses = () => {
   const { isOpen, onClose, onOpen } = useDisclosure();
 
-  const { courses } = useSelector((state) => state.course);
+  const { courses, lectures } = useSelector((state) => state.course);
+
   const [courseId, setCourseId] = useState("");
   const [courseTitle, setCourseTitle] = useState("");
 
@@ -36,6 +37,7 @@ const AdminCourses = () => {
   const courseHandler = (courseId, title) => {
     console.log("course handler", courseId);
     onOpen();
+    dispatch(getAllCourses(courseId));
     setCourseId(courseId);
     setCourseTitle(title);
   };
@@ -44,8 +46,7 @@ const AdminCourses = () => {
   };
 
   const delLectureBtnhandler = ({ courseId, LecId }) => {
-    console.log(courseId);
-    console.log(LecId);
+    // dispatch(get)
   };
 
   const addLectureHandler = async ({

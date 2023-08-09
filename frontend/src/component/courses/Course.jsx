@@ -98,6 +98,8 @@ const Course = () => {
             <Button isLoading={loading} colorScheme={"yellow"}>
               Watch Now
             </Button>
+          </Link>
+          <Link to={"/profile"}>
             <Button
               variant={"ghost"}
               colorScheme={"yellow"}
@@ -146,7 +148,7 @@ const Course = () => {
         >
           {courses?.length > 0 ? (
             courses &&
-            courses.map((item) => (
+            courses?.map((item) => (
               <Course
                 key={item._id}
                 views={item.views}

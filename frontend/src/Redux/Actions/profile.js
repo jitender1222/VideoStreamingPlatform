@@ -152,7 +152,7 @@ export const addToPlaylist = (id) => async (dispatch) => {
       },
       {
         headers: {
-          "Content-Type": "multipart/form-data",
+          "Content-Type": "application/json",
         },
         withCredentials: true,
       }
