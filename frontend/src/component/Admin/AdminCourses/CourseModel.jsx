@@ -81,6 +81,7 @@ const CourseModel = ({
                   lecId={"ewvdhjwvdwehj"}
                   courseId={id}
                   delLectureBtnhandler={delLectureBtnhandler}
+                  isLoading={loading}
                 />
               ))}
             </Box>
@@ -128,7 +129,12 @@ const CourseModel = ({
                       src={videoPrev}
                     ></video>
                   )}
-                  <Button type="submit" w={"full"} colorScheme="purple">
+                  <Button
+                    isLoading={loading}
+                    type="submit"
+                    w={"full"}
+                    colorScheme="purple"
+                  >
                     Upload
                   </Button>
                 </VStack>

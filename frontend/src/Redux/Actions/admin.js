@@ -113,3 +113,20 @@ export const addLecture = (id, formData) => async (dispatch) => {
     });
   }
 };
+
+export const deleteCourse = (id) => async (dispatch) => {
+  try {
+    dispatch({ type: "deleteCourseRequest" });
+
+    const { data } = await axios.delete(`${server}/course/lectures/${id}`, {
+      withCredentials: true,
+    });
+
+    dispatch({ type: "deleteCourseSuccess", payload: data.message });
+  } catch (error) {
+    dispatch({
+      type: "deleteCourseFail",
+      payload: error.response.data.message,
+    });
+  }
+};

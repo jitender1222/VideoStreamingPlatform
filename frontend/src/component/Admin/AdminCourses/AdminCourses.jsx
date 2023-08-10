@@ -22,12 +22,14 @@ import { RiDeleteBin7Fill } from "react-icons/ri";
 import CourseModel from "./CourseModel";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllCourses } from "../../../Redux/Actions/course";
-import { addLecture } from "../../../Redux/Actions/admin";
+import { addLecture, deleteCourse } from "../../../Redux/Actions/admin";
+import { toast } from "react-hot-toast";
 
 const AdminCourses = () => {
   const { isOpen, onClose, onOpen } = useDisclosure();
 
   const { courses, lectures } = useSelector((state) => state.course);
+  const { loading, error, message } = useSelector((state) => state.course);
 
   const [courseId, setCourseId] = useState("");
   const [courseTitle, setCourseTitle] = useState("");
@@ -41,13 +43,12 @@ const AdminCourses = () => {
     setCourseId(courseId);
     setCourseTitle(title);
   };
-  const deleteHandler = (userId) => {
-    console.log(userId);
+  const deleteHandler = (courseId) => {
+    console.log(courseId);
+    dispatch(deleteCourse(courseId));
   };
 
-  const delLectureBtnhandler = ({ courseId, LecId }) => {
-    // dispatch(get)
-  };
+  const delLectureBtnhandler = (courseId) => {};
 
   const addLectureHandler = async ({
     e,
@@ -66,8 +67,17 @@ const AdminCourses = () => {
   };
 
   useEffect(() => {
+    if (error) {
+      toast.error(error);
+      dispatch({ type: "clearError" });
+    }
+
+    if (message) {
+      toast.success("message");
+      dispatch({ type: "clearMessage" });
+    }
     dispatch(getAllCourses());
-  }, [dispatch]);
+  }, [dispatch, message, error]);
   return (
     <Grid
       minH={"90vh"}
@@ -115,6 +125,8 @@ const AdminCourses = () => {
           delLectureBtnhandler={delLectureBtnhandler}
           addLectureHandler={addLectureHandler}
           courseTitle={courseTitle}
+          lectures={lectures}
+          loading={loading}
         />
       </Box>
       <SideBar />
@@ -122,7 +134,7 @@ const AdminCourses = () => {
   );
 };
 
-function Row({ item, courseHandler, deleteHandler }) {
+function Row({ item, courseHandler, deleteHandler, loading }) {
   return (
     <Tr>
       <Td>#{item._id}</Td>
@@ -144,6 +156,7 @@ function Row({ item, courseHandler, deleteHandler }) {
             onClick={() => courseHandler(item._id, item.title)}
             variant={"outline"}
             color={"purple.500"}
+            isLoading={loading}
           >
             View Lectures
           </Button>
@@ -151,6 +164,7 @@ function Row({ item, courseHandler, deleteHandler }) {
             onClick={() => deleteHandler(item._id)}
             variant={"outline"}
             color={"purple.600"}
+            isLoading={loading}
           >
             <RiDeleteBin7Fill />
           </Button>

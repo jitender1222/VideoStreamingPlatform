@@ -64,5 +64,22 @@ export const courseReducer = createReducer(
       state.loading = false;
       state.error = action.payload;
     },
+    deleteCourseRequest: (state) => {
+      state.loading = true;
+    },
+    deleteCourseSuccess: (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    },
+    deleteCourseFail: (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    },
+    clearError: (state) => {
+      state.error = null;
+    },
+    clearMessage: (state) => {
+      state.message = null;
+    },
   }
 );

@@ -121,7 +121,7 @@ export const deleteCourse = catchAsyncError(async (req, res, next) => {
     });
   }
 
-  await course.remove();
+  await course.deleteOne({ _id: course.id });
   res.status(200).json({
     success: true,
     message: "Course deleted successfully",
@@ -146,7 +146,7 @@ export const deleteLecture = catchAsyncError(async (req, res, next) => {
 
   await course.save();
 
-  await course.remove();
+  await course.deleteOne({ _id: course.id });
   res.status(200).json({
     success: true,
     message: "Lecture deleted successfully",

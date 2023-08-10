@@ -22,3 +22,22 @@ export const getAllCourses =
       });
     }
   };
+
+export const getCourseLecture = (id) => async (dispatch) => {
+  try {
+    dispatch({ type: "getCoursesRequest" });
+
+    const { data } = await axios.get(`${server}/course/lectures/${id}`, {
+      withCredentials: true,
+    });
+
+    // console.log("data", data.getAll);
+
+    dispatch({ type: "getCoursesSuccess", payload: data.lectures });
+  } catch (error) {
+    dispatch({
+      type: "getCoursesFail",
+      payload: error.response.data.message,
+    });
+  }
+};
