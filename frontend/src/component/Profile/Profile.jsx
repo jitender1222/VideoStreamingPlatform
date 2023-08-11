@@ -24,6 +24,7 @@ import { fileUploadStyleCss } from "../Auth/Register";
 import { useDispatch, useSelector } from "react-redux";
 import { UpdateProfilePicture } from "../../Redux/Actions/profile";
 import { toast } from "react-hot-toast";
+import { deleteCourse } from "../../Redux/Actions/admin";
 
 const Profile = ({ user }) => {
   // console.log("user", user);
@@ -32,7 +33,7 @@ const Profile = ({ user }) => {
   // const { loading, message, error } = useSelector((state) => state.Profile);
   const { loading, error, message } = useSelector((state) => state.profile);
 
-  const removeFromPlaylist = () => {
+  const removeFromPlaylist = (courseId) => {
     console.log("remove");
   };
 

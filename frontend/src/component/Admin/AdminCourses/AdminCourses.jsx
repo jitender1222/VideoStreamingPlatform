@@ -23,13 +23,13 @@ import CourseModel from "./CourseModel";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllCourses } from "../../../Redux/Actions/course";
 import { addLecture, deleteCourse } from "../../../Redux/Actions/admin";
-import { toast } from "react-hot-toast";
+import toast from "react-hot-toast";
 
 const AdminCourses = () => {
   const { isOpen, onClose, onOpen } = useDisclosure();
 
   const { courses, lectures } = useSelector((state) => state.course);
-  const { loading, error, message } = useSelector((state) => state.course);
+  const { loading, error, message } = useSelector((state) => state.admin);
 
   const [courseId, setCourseId] = useState("");
   const [courseTitle, setCourseTitle] = useState("");
@@ -48,7 +48,7 @@ const AdminCourses = () => {
     dispatch(deleteCourse(courseId));
   };
 
-  const delLectureBtnhandler = (courseId) => {};
+  const delLectureBtnhandler = () => {};
 
   const addLectureHandler = async ({
     e,
