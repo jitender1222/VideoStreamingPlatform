@@ -74,12 +74,8 @@ const CourseModel = ({
               <Heading children="Lectures" size={"lg"} />
               {lectures.map((item, i) => (
                 <VideoCart
-                  key={item}
-                  title="React Intro"
-                  desc="This is an intro video to React"
+                  key={item._id}
                   num={i + 1}
-                  lecId={"ewvdhjwvdwehj"}
-                  courseId={id}
                   delLectureBtnhandler={delLectureBtnhandler}
                   isLoading={loading}
                 />

@@ -57,6 +57,7 @@ const AdminCourses = () => {
     description,
     video,
   }) => {
+    console.log("oinsid tje add lectire");
     e.preventDefault();
     const myForm = new FormData();
     myForm.append("title", title);

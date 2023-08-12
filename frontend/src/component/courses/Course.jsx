@@ -24,7 +24,6 @@ const Course = () => {
   const { loading, courses, error, message } = useSelector(
     (state) => state.course
   );
-  console.log("courses", typeof courses);
   console.log("courses", courses);
 
   useEffect(() => {
